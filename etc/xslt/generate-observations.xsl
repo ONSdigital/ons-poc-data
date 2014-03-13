@@ -52,8 +52,10 @@
     <xsl:variable name="filename"
       select="concat( $output_dir, '/obs-', $slug, '.json')" />
 
+<!-- 
     <xsl:message><xsl:value-of select="$filename"/></xsl:message>
-    
+ -->
+     
     <xsl:result-document href="{$filename}" format="text">
       <xsl:text>{</xsl:text>
 

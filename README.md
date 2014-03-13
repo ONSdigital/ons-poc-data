@@ -2,7 +2,7 @@
 
 Scripts to generate some data for a proof-of-concept data API based around Mongodb.
 
-The scripts currently work with the Producer Price Index (PPI) dataset, generating a directory of JSON files that can be 
+The scripts currently work with the Producer Price Index (PPI) data, generating a directory of JSON files that can be 
 loaded into a MongoDb instance
 
 ##Installation
@@ -27,14 +27,20 @@ There are individual rake tasks for the key steps: `init`, `download`, and `conv
 
 There are a couple of static files in `etc/static` which are copied into the `data/json` directory.
 
+##The Input
+
+* [The main PPI dataset zipped XML file](http://www.ons.gov.uk/ons/datasets-and-tables/downloads/data.zip?dataset=ppi). See [context](http://www.ons.gov.uk/ons/rel/ppi2/producer-price-index/january-2014/tsd-producer-price-index--january-2014.html)
+* The [PPI records January 2014](http://www.ons.gov.uk/ons/rel/ppi2/producer-price-index/january-2014/ppi-records-january-2014.xls) which are one part of the [reference tables](http://www.ons.gov.uk/ons/publications/re-reference-tables.html?edition=tcm%3A77-325532). These contain indices showing current rates.
+* The set of HTML pages linked from the [PPI index](http://www.ons.gov.uk/ons/rel/ppi2/producer-price-index/index.html)
+
 ##The Output
 
 The conversion generates several kinds of files:
 
 * Series (`series-*.json`) -- in this case, just a single series, the PPI
 * Release (`release-*.json`) -- one for each of the monthly releases of the PPI
-* Dataset (`dataset-*.json`) -- a single dataset, covering the latest (Feb 2014) release of the PPI.
-* Observations( `obs-*.json`) -- one document for each observation in the dataset
+* Dataset (`dataset-*.json`) -- datasets, there are 5 currently: one for the main set of observations and four others containing indices.
+* Observations( `obs-*.json`) -- one document for each observation in a dataset
 
 The Dataset contains the definitions of all of the dataset dimensions and attributes used in the observations, within the 
 `structure` hash. The values for each dimension are included in the `values` key for that dimension.

@@ -4,7 +4,7 @@
 	"type": "Series",
    	"coverage" : "http://statistics.data.gov.uk/doc/statistical-geography/K02000001",
    	"geographic-breakdown" : "UK and GB",
-   	"language": "english",
+   	"language": "en",
    	"frequency": "monthly",
    	"contact" : {
       "department" : "Business Prices",

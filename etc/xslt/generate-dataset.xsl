@@ -19,7 +19,6 @@
     <xsl:text>{  
       "coverage": "http://statistics.data.gov.uk/doc/statistical-geography/K02000001",
       "geographic-breakdown": "UK and GB",
-      "source": "Index Numbers of Producer Prices (PPI): Provision of Price Information",
       "notes": "&lt;p>&lt;strong>Important Note for Users&lt;/strong>&lt;/p>&lt;p>All of the data included in this dataset is published on a 2010=100 basis.&lt;/p>&lt;p>A comprehensive selection of data on input and output indices. Contains producer price indices of materials and fuels purchased and output of manufacturing industry by broad sector.&lt;/p>&lt;p>Indices for the latest two months are provisional due to the level of imputation present for items where the latest prices are not available. The latest five months are subject to revisions in light of (a) late and revised contributor data and (b) revisions to seasonal adjustment factors which are re-estimated every month.&lt;/p>",
       </xsl:text>
       <!-- title -->
