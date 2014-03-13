@@ -65,12 +65,16 @@ E.g. `cdid` is defined as:
 
 ##Use Cases
 
-Some notes on use cases to support in the API
+Some use cases to support in a data API wrapping this data:
 
-* Lookup an individual observation, e.g. January 2014 value for JU5C (soft drinks). May have qualifiers and notes
-* Lookup a time series (a slice) for a given price index, e.g. all annual values for JU5C; all december 2013 figures across all prices
-* Lookup a series, with all releases
-* Lookup a release, with list of datasets and notes
+* Fetch an object based on its URI (`id`), e.g. a dataset, release, observation
+* Fetch an observation based on its properties, e.g. "find me the observation with a `cdid` of `MC3Z` recorded in November 2013 (`2013NOV`)"
+* Fetch the latest observation for a given `cdid`, e.g "what is the latest recorded price for `JU5C`?`
+* Fetch all observations in a given time series, e.g. "find me all of the annual observations of `MC75`", or "find me all of the monthly observations of `MC75` for 2013" 
+* Fetch a list of all releases of a given series
+* Fetch a list of all datasets associated with a given release, e.g. "find all datasets associated with the 2014-02-18 release of the PPI"
+* Lookup the list of dimensions for a dataset, e.g. what is the structure of the PPI dataset?
+* Lookup the list of values for a dimension in a dataset, e.g. what values can `cdid` take in the PPI dataset?
 
 ## TODO
 
