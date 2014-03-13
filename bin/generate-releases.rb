@@ -15,6 +15,13 @@ Dir.glob("#{ARGV[0]}/*.html") do |file|
       type: "Release"
     }
     
+    next_release = release_page.search(".release-date")[1]
+    if next_release
+      next_release = next_release.inner_text.strip.match( /\Next edition:\s+([a-zA-Z0-9 ]+)/ )[1]
+      next_release = Date.parse( next_release ).strftime("%Y-%m-%d")
+      release[:superceded_by] = "/statistics/producer-price-index/#{next_release}"
+    end
+    
     if release_page.at(".srp-key-points")
       release[:notes] = release_page.at(".srp-key-points").inner_html
     end  
