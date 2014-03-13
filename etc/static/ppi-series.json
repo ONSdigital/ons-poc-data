@@ -2,7 +2,7 @@
 	"id": "/statistics/producer-price-index",
 	"title": "Producer Price Index",
 	"type": "Series",
-   	"coverage" : "UK",
+   	"coverage" : "http://statistics.data.gov.uk/doc/statistical-geography/K02000001",
    	"geographic-breakdown" : "UK and GB",
    	"language": "english",
    	"frequency": "monthly",
