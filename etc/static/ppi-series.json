@@ -1,0 +1,16 @@
+{
+	"id": "/statistics/producer-price-index",
+	"title": "Producer Price Index",
+	"type": "Series",
+   	"coverage" : "UK",
+   	"geographic-breakdown" : "UK and GB",
+   	"language": "english",
+   	"frequency": "monthly",
+   	"contact" : {
+      "department" : "Business Prices",
+      "email" : "ppi@ons.gsi.gov.uk",
+      "name" : "Kat Pegler",
+      "telephone" : "+44 (0) 1633 456468",
+      "uri" : "www.ons.gov.uk"
+   },
+}
