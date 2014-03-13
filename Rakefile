@@ -23,6 +23,10 @@ task :download => [:init, :cache_releases] do
   sh %{unzip -u #{CACHE_DIR}/*.zip -d #{CACHE_DIR}}
 end
 
+task :clean_cache do
+  sh %{rm -rf data/cache}
+end
+
 task :cache_releases => [:init] do
   sh %{ruby bin/cache-release-pages.rb #{CACHE_DIR}/pages}  
 end

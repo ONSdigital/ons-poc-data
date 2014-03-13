@@ -18,9 +18,13 @@ Dir.glob("#{ARGV[0]}/*.html") do |file|
     if release_page.at(".srp-key-points")
       release[:notes] = release_page.at(".srp-key-points").inner_html
     end  
-    
+
+    if release_page.at(".srp-correction")
+      release[:correction] = release_page.at(".srp-correction").inner_html
+    end  
+        
     File.open( File.join( ARGV[1], "ppi-release-#{date}.json"), "w") do |f|
-      f.puts release.to_json 
+      f.puts JSON.pretty_generate(release) 
     end
   else
     puts "Unable to find date: #{link}"
