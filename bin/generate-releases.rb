@@ -30,7 +30,7 @@ Dir.glob("#{ARGV[0]}/*.html") do |file|
       release[:correction] = release_page.at(".srp-correction").inner_html
     end  
         
-    File.open( File.join( ARGV[1], "ppi-release-#{date}.json"), "w") do |f|
+    File.open( File.join( ARGV[1], "release-ppi-#{date}.json"), "w") do |f|
       f.puts JSON.pretty_generate(release) 
     end
   else

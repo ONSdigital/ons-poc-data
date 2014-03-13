@@ -36,7 +36,7 @@ task :generate_releases do
 end
 
 task :generate_dataset do
-  sh %{saxonb-xslt -ext:on data/cache/PPI_CSDB_DS.output.xml etc/xslt/generate-dataset.xsl >data/json/ppi-csdb-ds.json }
+  sh %{saxonb-xslt -ext:on data/cache/PPI_CSDB_DS.output.xml etc/xslt/generate-dataset.xsl >data/json/dataset-ppi-csdb-ds.json }
 end
 
 task :generate_observations do

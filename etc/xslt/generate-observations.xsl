@@ -50,7 +50,7 @@
   <xsl:template match="wdp:Section/wdp:*">
     <xsl:variable name="slug" select="concat( lower-case( local-name() ), '-', lower-case( ../@Date )  )"/>
     <xsl:variable name="filename"
-      select="concat( $output_dir, '/', $slug, '.json')" />
+      select="concat( $output_dir, '/obs-', $slug, '.json')" />
 
     <xsl:message><xsl:value-of select="$filename"/></xsl:message>
     
