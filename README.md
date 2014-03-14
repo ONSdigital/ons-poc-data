@@ -10,7 +10,11 @@ loaded into a MongoDb instance
 Uses Rake for co-ordinating data conversion. The original XML data is converted to JSON using XSLT stylesheets processed 
 with Saxon.
 
+hpricot isn't in rubygems anymore so you'll need to manually gem install it, it won't install by itself just running bundle.
+
+
 ```
+gem install hpricot
 bundle install
 sudo apt-get install libsaxonb-java
 ```
