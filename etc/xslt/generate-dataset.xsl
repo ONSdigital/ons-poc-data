@@ -136,14 +136,27 @@
   </xsl:template>
   
   <xsl:template match="structure:Dimension|structure:TimeDimension|structure:PrimaryMeasure|structure:Attribute">
+    <xsl:variable name="dimension-name">
+      <xsl:choose>
+        <xsl:when test="lower-case( @conceptRef ) = 'obs_value'">
+          <xsl:value-of select="'price_index'"/>
+        </xsl:when>
+        <xsl:when test="lower-case( @conceptRef ) = 'cdid'">
+          <xsl:value-of select="'product'"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="lower-case( @conceptRef )"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
     <xsl:call-template name="json-key">
-      <xsl:with-param name="name" select="lower-case( @conceptRef )"/>     
+      <xsl:with-param name="name" select="$dimension-name"/>     
       <xsl:with-param name="string" select="false()"/>       
       <xsl:with-param name="value">
         <xsl:text>{</xsl:text>
           <xsl:call-template name="json-key">
             <xsl:with-param name="name" select="'id'"/>
-            <xsl:with-param name="value" select="concat( '/def/producer-price-index/', lower-case(@conceptRef) )"/>
+            <xsl:with-param name="value" select="concat( '/def/producer-price-index/', $dimension-name )"/>
           </xsl:call-template>
           <xsl:text>,</xsl:text>
           <xsl:call-template name="json-key">
