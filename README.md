@@ -16,7 +16,18 @@ hpricot isn't in rubygems anymore so you'll need to manually gem install it, it 
 ```
 gem install hpricot
 bundle install
+```
+
+Then, on Linux, run 
+
+```
 sudo apt-get install libsaxonb-java
+```
+
+Or on OSX, run
+
+```
+brew install saxon
 ```
 
 ##Running the Conversion
