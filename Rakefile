@@ -7,6 +7,10 @@ CACHE_DIR="data/cache"
 JSON_DIR="data/json"
 
 CLEAN.include ["#{JSON_DIR}/*.json", "#{JSON_DIR}/*.gz"]
+
+def osx?
+  RUBY_PLATFORM.downcase =~ /darwin/
+end
   
 task :init do
   FileUtils.mkdir_p(CACHE_DIR)
@@ -36,11 +40,21 @@ task :generate_releases do
 end
 
 task :generate_dataset do
-  sh %{saxonb-xslt -ext:on data/cache/PPI_CSDB_DS.output.xml etc/xslt/generate-dataset.xsl >data/json/dataset-ppi-csdb-ds.json }
+  flags = "-ext:on data/cache/PPI_CSDB_DS.output.xml etc/xslt/generate-dataset.xsl >data/json/dataset-ppi-csdb-ds.json"
+  if osx?
+    sh %{saxon #{flags}}
+  else
+    sh %{saxonb-xslt #{flags}}
+  end
 end
 
 task :generate_observations do
-  sh %{saxonb-xslt -ext:on data/cache/PPI_CSDB_DS.output.xml etc/xslt/generate-observations.xsl }
+  flags = "-ext:on data/cache/PPI_CSDB_DS.output.xml etc/xslt/generate-observations.xsl"
+  if osx?
+    sh %{saxon #{flags}}
+  else
+    sh %{saxonb-xslt #{flags}}
+  end
 end
 
 task :static do
