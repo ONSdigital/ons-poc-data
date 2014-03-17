@@ -1,0 +1,12 @@
+{
+	"id": "/def/data-qualifiers",
+	"type": "concept-scheme",
+	"title": "Data Qualifiers",
+	"values": { 
+		"coverage": {
+			"id": "/def/data-qualifiers/coverage",
+			"notation": "coverage",
+			"title": "Limited Coverage" 
+		}
+	}
+}

@@ -27,6 +27,11 @@
       <xsl:apply-templates select="msg:CrossSectionalData/msg:Header" />      
       <!-- structure -->
       <xsl:apply-templates select="msg:Structure" />
+      <!-- document per measure, dimension, attribute -->
+      <xsl:apply-templates select="//structure:Components/structure:Dimension|//structure:Components/structure:TimeDimension|//structure:Components/structure:PrimaryMeasure|//structure:Components/structure:Attribute"
+      mode="dimension-docs"/>
+      <!-- document per concept scheme -->
+      <xsl:apply-templates select="//structure:CodeList" />
       
     <xsl:text>}</xsl:text>  
   </xsl:template>
@@ -102,25 +107,17 @@
       <xsl:with-param name="value">
         <xsl:text>{
           "provisional": {
-            "id": "/def/quality/provisional",
-            "type": "attribute",
-            "title": "Provisional"
+            "id": "/def/attributes/provisional",
+            "type": "attribute"            
           },
           "revised": {
-            "id": "/def/quality/revised",
-            "type": "attribute",
-            "title": "Revised"          
+            "id": "/def/attributes/revised",
+            "type": "attribute"       
           },
-          "unreliable": {
-            "id": "/def/quality/unreliable",
+          "qualifier": {
+            "id": "/def/attributes/qualifier",
             "type": "attribute",
-            "title": "Unreliable",
-            "values": { "coverage": {
-                "id": "/def/quality/unreliable/coverage",
-                "notation": "coverage",
-                "title": "Limited Coverage" 
-              }
-            }          
+            "values": "/def/data-qualifiers"
           },          
         </xsl:text>
         <xsl:for-each select="//structure:Components/structure:Dimension|//structure:Components/structure:TimeDimension|//structure:Components/structure:PrimaryMeasure|//structure:Components/structure:Attribute">
@@ -133,9 +130,11 @@
       </xsl:with-param>
       <xsl:with-param name="string" select="false()"/>      
     </xsl:call-template> 
+          
   </xsl:template>
   
   <xsl:template match="structure:Dimension|structure:TimeDimension|structure:PrimaryMeasure|structure:Attribute">
+  
     <xsl:variable name="dimension-name">
       <xsl:choose>
         <xsl:when test="lower-case( @conceptRef ) = 'obs_value'">
@@ -149,6 +148,23 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
+    
+    <xsl:variable name="dimension-type">
+      <xsl:choose>
+        <xsl:when test="local-name() = 'Dimension' or local-name() = 'TimeDimension'">
+          <xsl:value-of select="'dimension'"/>
+        </xsl:when>
+        <xsl:when test="local-name() = 'Measure' or local-name() = 'PrimaryMeasure'">
+          <xsl:value-of select="'measure'"/>
+        </xsl:when>    
+        <xsl:when test="local-name() = 'Attribute'">
+          <xsl:value-of select="'attribute'"/>
+        </xsl:when>             
+      </xsl:choose>
+    </xsl:variable>
+    
+    <xsl:variable name="conceptRef" select="@conceptRef"/>
+    
     <xsl:call-template name="json-key">
       <xsl:with-param name="name" select="$dimension-name"/>     
       <xsl:with-param name="string" select="false()"/>       
@@ -156,42 +172,120 @@
         <xsl:text>{</xsl:text>
           <xsl:call-template name="json-key">
             <xsl:with-param name="name" select="'id'"/>
-            <xsl:with-param name="value" select="concat( '/def/producer-price-index/', $dimension-name )"/>
+            <xsl:with-param name="value" select="concat( '/def/', $dimension-type, 's/', $dimension-name )"/>
           </xsl:call-template>
           <xsl:text>,</xsl:text>
           <xsl:call-template name="json-key">
             <xsl:with-param name="name" select="'type'"/>
             <xsl:with-param name="value" select="lower-case(local-name())"/>
           </xsl:call-template>
-          <xsl:text>,</xsl:text>
-          <xsl:variable name="conceptRef" select="@conceptRef"/>
-          <xsl:call-template name="json-key">
-            <xsl:with-param name="name" select="'title'"/>
-            <xsl:with-param name="value" select="//structure:Concept[@id=$conceptRef]/structure:Name"/>
-          </xsl:call-template>
-          
+
           <xsl:if test="//structure:CodeList[@id=$conceptRef]">
             <xsl:text>,</xsl:text>
 
             <xsl:call-template name="json-key">
               <xsl:with-param name="name" select="'values'"/>
-              <xsl:with-param name="string" select="false()"/>
-              <xsl:with-param name="value">
-                 <xsl:text>{</xsl:text>
-	             <xsl:for-each select="//structure:CodeList[@id=$conceptRef]/structure:Code">
-                  <xsl:apply-templates select="."/>
-                  <xsl:if test="position() != last()">
-                    <xsl:text>,</xsl:text>
-                  </xsl:if>                    
-                  </xsl:for-each>
-                 <xsl:text>}</xsl:text>
-              </xsl:with-param>
+              <xsl:with-param name="value" select="concat( '/def/', lower-case($conceptRef) )"/>
             </xsl:call-template>
-          </xsl:if>
-          
+
+          </xsl:if>                        
+           
         <xsl:text>}</xsl:text>        
       </xsl:with-param>
     </xsl:call-template>
+  </xsl:template>
+  
+  <xsl:template match="structure:Dimension|structure:TimeDimension|structure:PrimaryMeasure|structure:Attribute" 
+      mode="dimension-docs">
+      <xsl:variable name="dimension-name">
+      <xsl:choose>
+        <xsl:when test="lower-case( @conceptRef ) = 'obs_value'">
+          <xsl:value-of select="'price_index'"/>
+        </xsl:when>
+        <xsl:when test="lower-case( @conceptRef ) = 'cdid'">
+          <xsl:value-of select="'product'"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="lower-case( @conceptRef )"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    
+    <xsl:variable name="dimension-type">
+      <xsl:choose>
+        <xsl:when test="local-name() = 'Dimension' or local-name() = 'TimeDimension'">
+          <xsl:value-of select="'dimension'"/>
+        </xsl:when>
+        <xsl:when test="local-name() = 'Measure' or local-name() = 'PrimaryMeasure'">
+          <xsl:value-of select="'measure'"/>
+        </xsl:when>    
+        <xsl:when test="local-name() = 'Attribute'">
+          <xsl:value-of select="'attribute'"/>
+        </xsl:when>             
+      </xsl:choose>
+    </xsl:variable>
+    
+    <xsl:variable name="conceptRef" select="@conceptRef"/>
+  
+      <!-- separate document for the dimension/measure/attribute -->
+    <xsl:variable name="dim-filename" select="concat( $output_dir, '/', $dimension-type, '-', $dimension-name, '.json' )"/>
+    <xsl:result-document href="{$dim-filename}">
+        <xsl:text>{</xsl:text>   
+          <xsl:call-template name="json-key">
+              <xsl:with-param name="name" select="'id'"/>
+              <xsl:with-param name="value" select="concat( '/def/', $dimension-type, 's/', $dimension-name )"/>
+          </xsl:call-template>
+          <xsl:text>,</xsl:text>
+          <xsl:call-template name="json-key">
+              <xsl:with-param name="name" select="'type'"/>
+              <xsl:with-param name="value" select="lower-case(local-name())"/>
+          </xsl:call-template>     
+          <xsl:text>,</xsl:text>
+          <xsl:call-template name="json-key">
+            <xsl:with-param name="name" select="'title'"/>
+            <xsl:with-param name="value" select="//structure:Concept[@id=$conceptRef]/structure:Name"/>
+          </xsl:call-template>               
+        <xsl:text>}</xsl:text>   
+    </xsl:result-document>
+  
+  </xsl:template>
+  
+  <xsl:template match="structure:CodeList">
+    <xsl:variable name="cs-filename" select="concat( $output_dir, '/cs', '-', lower-case(@id), '.json' )"/>
+    <xsl:result-document href="{$cs-filename}">
+        <xsl:text>{</xsl:text>   
+          <xsl:call-template name="json-key">
+              <xsl:with-param name="name" select="'id'"/>
+              <xsl:with-param name="value" select="concat( '/def/', lower-case(@id) )"/>
+          </xsl:call-template>
+          <xsl:text>,</xsl:text>
+          <xsl:call-template name="json-key">
+              <xsl:with-param name="name" select="'type'"/>
+              <xsl:with-param name="value" select="'concept-scheme'"/>
+          </xsl:call-template>     
+          <xsl:text>,</xsl:text>
+          <xsl:call-template name="json-key">
+            <xsl:with-param name="name" select="'title'"/>
+            <xsl:with-param name="value" select="structure:Name"/>
+          </xsl:call-template>
+          <xsl:text>,</xsl:text>
+          <xsl:call-template name="json-key">
+            <xsl:with-param name="name" select="'values'" />
+            <xsl:with-param name="string" select="false()" />
+            <xsl:with-param name="value">
+              <xsl:text>{</xsl:text>
+              <xsl:for-each
+                select="structure:Code">
+                <xsl:apply-templates select="." />
+                <xsl:if test="position() != last()">
+                  <xsl:text>,</xsl:text>
+                </xsl:if>
+              </xsl:for-each>
+              <xsl:text>}</xsl:text>
+            </xsl:with-param>
+          </xsl:call-template>  
+        <xsl:text>}</xsl:text>   
+    </xsl:result-document>  
   </xsl:template>
   
   <xsl:template match="structure:Code">
@@ -210,7 +304,7 @@
       
           <xsl:call-template name="json-key">
             <xsl:with-param name="name" select="'id'"/>
-            <xsl:with-param name="value" select="concat( '/def/producer-price-index/', lower-case(../@id), '/', lower-case(@value) )"/>
+            <xsl:with-param name="value" select="concat( '/def/', lower-case(../@id), '/', lower-case(@value) )"/>
           </xsl:call-template>
           
           <xsl:text>,</xsl:text>
