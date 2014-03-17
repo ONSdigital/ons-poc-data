@@ -52,8 +52,10 @@
     <xsl:variable name="filename"
       select="concat( $output_dir, '/obs-', $slug, '.json')" />
 
+<!-- 
     <xsl:message><xsl:value-of select="$filename"/></xsl:message>
-    
+ -->
+     
     <xsl:result-document href="{$filename}" format="text">
       <xsl:text>{</xsl:text>
 
@@ -101,7 +103,7 @@
 
       <!-- TODO: leave this as cdid, or alternate name? -->
       <xsl:call-template name="json-key">
-        <xsl:with-param name="name" select="'cdid'"/>
+        <xsl:with-param name="name" select="'product'"/>
         <xsl:with-param name="value" select="local-name()"/>
       </xsl:call-template>
 
@@ -185,7 +187,7 @@
       </xsl:if>      
 
       <xsl:call-template name="json-key">
-        <xsl:with-param name="name" select="'obs_value'"/>
+        <xsl:with-param name="name" select="'price_index'"/>
         <xsl:with-param name="value" select="@value"/>
         <xsl:with-param name="string" select="false()"/>
       </xsl:call-template>

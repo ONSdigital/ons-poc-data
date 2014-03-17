@@ -1,7 +1,19 @@
 GEM
+  remote: https://rubygems.org/
   specs:
     hpricot (0.8.6)
     json (1.8.1)
+    mini_portile (0.5.2)
+    nokogiri (1.6.1)
+      mini_portile (~> 0.5.0)
+    roo (1.13.2)
+      nokogiri
+      rubyzip
+      spreadsheet (> 0.6.4)
+    ruby-ole (1.2.11.7)
+    rubyzip (1.1.0)
+    spreadsheet (0.9.7)
+      ruby-ole (>= 1.0)
 
 PLATFORMS
   ruby
@@ -9,3 +21,4 @@ PLATFORMS
 DEPENDENCIES
   hpricot
   json
+  roo
