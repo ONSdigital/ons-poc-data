@@ -43,11 +43,37 @@ worksheets.each do |worksheet|
            }
          }
       },
-      rate: {
-         id: "/def/producer-price-index/rate",
-         title: "Current Rate",
+      unit_measure: {
+        id: "/def/measures/unit-measure",
+        type: "attribute",
+        values: {
+          "percentage" => {
+            id: "/def/measures/unit-measure/percentage",
+            notation: "percentage",
+            title: "Percentage"
+          }
+        }
+      },
+      percentage_change: {
+         id: "/def/producer-price-index/percentage-change",
+         title: "Percentage Change",
          type: "primarymeasure"
-      }
+      },
+      reporting_period: {
+         id: "/def/producer-price-index/reporting-period",
+         title: "Reference Period",
+         type: "dimension",
+         values: {
+           month: {
+             id: "/def/producer-price-index/reporting-period/monthly",
+             notation: "monthly"
+           },
+           annual: {
+             id: "/def/producer-price-index/reporting-period/annual",
+             notation: "annual"
+           }          
+         }
+      }        
     }
   }
   observations = []
@@ -80,7 +106,9 @@ worksheets.each do |worksheet|
           cdid: cdid,
           date: date_month,
           notes: notes,
-          rate: rate
+          percentage_change: rate,
+          unit_measure: "percentage",
+          reporting_period: worksheet.include?("12mth") ? "annual" : "monthly"
         })
       end
     end
