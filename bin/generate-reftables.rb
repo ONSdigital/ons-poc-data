@@ -24,56 +24,29 @@ worksheets.each do |worksheet|
     title: spreadsheet.sheet(worksheet).cell(1, "B"),
     published: Date.parse( date ).strftime("%Y-%m-%d"),
     structure: {
-      cdid: {
-        id: "/def/producer-price-index/cdid",
-        title: "CDID",
+      product: {
+        id: "/def/dimensions/product",
         type: "dimension",
-        values: {
-        }
+        values: "/def/cdid"
       },
       date: {
-         id: "/def/producer-price-index/date",
-         title: "Time Period",
-         type: "timedimension",
-         values: {
-           "#{date_month}" => {
-             id: "/def/producer-price-index/date/#{date_month.downcase}",
-             notation: date_month,
-             title: Date.parse( date ).strftime("%Y %^b")          
-           }
-         }
+         id: "/def/dimensions/date",
+         type: "timedimension"
       },
       unit_measure: {
-        id: "/def/measures/unit-measure",
+        id: "/def/attributes/unit-measure",
         type: "attribute",
-        values: {
-          "percentage" => {
-            id: "/def/measures/unit-measure/percentage",
-            notation: "percentage",
-            title: "Percentage"
-          }
-        }
+        values: "/def/units"
       },
       percentage_change: {
-         id: "/def/producer-price-index/percentage-change",
-         title: "Percentage Change",
-         type: "primarymeasure"
+         id: "/def/measures/percentage-change",
+         type: "measure"
       },
       reporting_period: {
-         id: "/def/producer-price-index/reporting-period",
-         title: "Reference Period",
+         id: "/def/dimensions/reporting-period",
          type: "dimension",
-         values: {
-           month: {
-             id: "/def/producer-price-index/reporting-period/monthly",
-             notation: "monthly"
-           },
-           annual: {
-             id: "/def/producer-price-index/reporting-period/annual",
-             notation: "annual"
-           }          
-         }
-      }        
+         values: "/def/periods" 
+      }    
     }
   }
   observations = []
@@ -89,12 +62,6 @@ worksheets.each do |worksheet|
       notes = "<p>Last lower: #{spreadsheet.sheet(worksheet).cell(row, "F")}</p>" + 
       "<p>Last higher: #{spreadsheet.sheet(worksheet).cell(row, "G")}</p>" + 
       "<p>Same: #{spreadsheet.sheet(worksheet).cell(row, "H")}</p>"
-      
-      dataset[:structure][:cdid][:values][cdid] = {
-        id: "/def/producer-price-index/cdid/#{cdid}",
-        notation: cdid,
-        title: title
-      }
       
       observation_slug = "obs-#{dataset_slug}-#{cdid.downcase}-#{date_month.downcase}"
       File.open( File.join( output_dir, "#{observation_slug}.json" ), "w") do |f|

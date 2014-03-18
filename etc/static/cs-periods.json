@@ -1,0 +1,17 @@
+{
+	"id": "/def/periods",
+	"type": "concept-scheme",
+	"title": "Periods",
+	"values": { 
+		"monthly": {
+			"id": "/def/periods/monthly",
+			"notation": "monthly",
+			"title": "Monthly" 
+		},
+		"annual": {
+			"id": "/def/periods/annual",
+			"notation": "annual",
+			"title": "Annual" 
+		}
+	}
+}

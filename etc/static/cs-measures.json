@@ -1,0 +1,12 @@
+{
+	"id": "/def/units",
+	"type": "concept-scheme",
+	"title": "Units",
+	"values": { 
+		"percentage": {
+			"id": "/def/units/percentage",
+			"notation": "percentage",
+			"title": "Percentage" 
+		}
+	}
+}
