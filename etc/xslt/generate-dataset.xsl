@@ -118,7 +118,12 @@
             "id": "/def/attributes/qualifier",
             "type": "attribute",
             "values": "/def/data-qualifiers"
-          },          
+          },  
+          "reporting_period": {
+            "id": "/def/dimensions/reporting-period",
+            "type": "dimension",
+            "values": "/def/periods"
+          },        
         </xsl:text>
         <xsl:for-each select="//structure:Components/structure:Dimension|//structure:Components/structure:TimeDimension|//structure:Components/structure:PrimaryMeasure|//structure:Components/structure:Attribute">
           <xsl:apply-templates select="."/>
@@ -308,6 +313,59 @@
           </xsl:call-template>
           
           <xsl:text>,</xsl:text>
+          
+          <xsl:if test="lower-case(../@id) = 'date'">
+            <xsl:variable name="date-path">
+              <xsl:choose>
+                <xsl:when test="contains(@value, 'Q')">
+                  <xsl:value-of select="'/quarter/'"/>
+                </xsl:when>
+                <xsl:when test="string-length(@value) = 4">
+                  <xsl:value-of select="'/year/'"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="'/month/'"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
+
+            <xsl:variable name="date-slug">
+              <xsl:choose>
+                <xsl:when test="contains(@value, 'Q')">
+                  <xsl:value-of select="translate(structure:Description, ' ', '-')"/>
+                </xsl:when>
+                <xsl:when test="string-length(@value) = 4">
+                  <xsl:value-of select="@value"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:variable name="month">
+                    <xsl:choose>
+                      <xsl:when test="contains(@value, 'JAN')">01</xsl:when>
+                      <xsl:when test="contains(@value, 'FEB')">02</xsl:when>
+                      <xsl:when test="contains(@value, 'MAR')">03</xsl:when>
+                      <xsl:when test="contains(@value, 'APR')">04</xsl:when>
+                      <xsl:when test="contains(@value, 'MAY')">05</xsl:when>
+                      <xsl:when test="contains(@value, 'JUN')">06</xsl:when>
+                      <xsl:when test="contains(@value, 'JUL')">07</xsl:when>
+                      <xsl:when test="contains(@value, 'AUG')">08</xsl:when>
+                      <xsl:when test="contains(@value, 'SEP')">09</xsl:when>
+                      <xsl:when test="contains(@value, 'OCT')">10</xsl:when>
+                      <xsl:when test="contains(@value, 'NOV')">11</xsl:when>
+                      <xsl:when test="contains(@value, 'DEC')">12</xsl:when>         
+                    </xsl:choose>                                                   
+                  </xsl:variable>
+                  <xsl:value-of select="concat( substring(@value, 0, 5), '-', $month)"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
+          
+            <xsl:call-template name="json-key">
+              <xsl:with-param name="name" select="'sameAs'"/>
+              <xsl:with-param name="value" select="concat('http://reference.data.gov.uk/id', $date-path, $date-slug)"/>
+            </xsl:call-template>
+            
+            <xsl:text>,</xsl:text>
+          </xsl:if>
           
           <xsl:call-template name="json-key">
             <xsl:with-param name="name" select="'title'"/>

@@ -12,6 +12,11 @@
 			"id": "/def/periods/annual",
 			"notation": "annual",
 			"title": "Annual" 
+		},
+		"quarterly": {
+			"id": "/def/periods/quarterly",
+			"notation": "quarterly",
+			"title": "Quarterly" 
 		}
 	}
 }
