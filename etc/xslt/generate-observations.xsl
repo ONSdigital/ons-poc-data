@@ -180,7 +180,6 @@
         <xsl:call-template name="json-key">
           <xsl:with-param name="name" select="'unreliable'"/>
           <xsl:with-param name="value" select="'coverage'"/>
-          <xsl:with-param name="string" select="false()"/>
         </xsl:call-template>
 
         <xsl:text>,</xsl:text>      
