@@ -118,7 +118,12 @@
             "id": "/def/attributes/qualifier",
             "type": "attribute",
             "values": "/def/data-qualifiers"
-          },          
+          },  
+          "reporting_period": {
+            "id": "/def/dimensions/reporting-period",
+            "type": "dimension",
+            "values": "/def/periods"
+          },        
         </xsl:text>
         <xsl:for-each select="//structure:Components/structure:Dimension|//structure:Components/structure:TimeDimension|//structure:Components/structure:PrimaryMeasure|//structure:Components/structure:Attribute">
           <xsl:apply-templates select="."/>

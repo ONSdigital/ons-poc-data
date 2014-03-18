@@ -144,6 +144,28 @@
 
       <xsl:text>,</xsl:text>
 
+      <xsl:variable name="period">
+        <xsl:choose>
+          <xsl:when test="contains(../@Date, 'Q')">
+            <xsl:value-of select="'quarterly'" />
+          </xsl:when>
+          <xsl:when test="string-length(../@Date) = 4">
+            <xsl:value-of select="'annual'" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="'monthly'" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+
+      <xsl:call-template name="json-key">
+        <xsl:with-param name="name" select="'reporting_period'"/>
+        <xsl:with-param name="value" select="$period"/>
+      </xsl:call-template>
+
+      <xsl:text>,</xsl:text>
+
+
       <!-- add provisional indicator for most recent two months -->
       <xsl:variable name="provisional">
         <xsl:choose>
