@@ -86,6 +86,7 @@
     
   </xsl:template>
 
+<!-- 
   <xsl:template match="msg:Contact">
     <xsl:text>{</xsl:text>  
       <xsl:for-each select="msg:*">
@@ -99,7 +100,8 @@
       </xsl:for-each>    
     <xsl:text>}</xsl:text>
   </xsl:template>
-      
+ -->
+       
   <xsl:template match="msg:Structure">
     <xsl:text>,</xsl:text>
     <xsl:call-template name="json-key">
@@ -108,7 +110,8 @@
         <xsl:text>{
           "provisional": {
             "id": "/def/attributes/provisional",
-            "type": "attribute"            
+            "type": "attribute"   ,
+            "values": "/def/boolean"         
           },
           "revised": {
             "id": "/def/attributes/revised",
@@ -138,7 +141,7 @@
           
   </xsl:template>
   
-  <xsl:template match="structure:Dimension|structure:TimeDimension|structure:PrimaryMeasure|structure:Attribute">
+  <xsl:template match="structure:Dimension[@conceptRef!='Publication']|structure:TimeDimension|structure:PrimaryMeasure|structure:Attribute">
   
     <xsl:variable name="dimension-name">
       <xsl:choose>
@@ -200,7 +203,7 @@
     </xsl:call-template>
   </xsl:template>
   
-  <xsl:template match="structure:Dimension|structure:TimeDimension|structure:PrimaryMeasure|structure:Attribute" 
+  <xsl:template match="structure:Dimension[@conceptRef!='Publication']|structure:TimeDimension|structure:PrimaryMeasure|structure:Attribute" 
       mode="dimension-docs">
       <xsl:variable name="dimension-name">
       <xsl:choose>
@@ -293,7 +296,7 @@
     </xsl:result-document>  
   </xsl:template>
   
-  <xsl:template match="structure:Code">
+  <xsl:template match="structure:Code[@id != 'Publication']">
     <xsl:call-template name="json-key">
       <xsl:with-param name="name" select="@value"/>
       <xsl:with-param name="string" select="false"/>

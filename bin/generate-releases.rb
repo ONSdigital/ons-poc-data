@@ -29,7 +29,22 @@ Dir.glob("#{ARGV[0]}/*.html") do |file|
     if release_page.at(".srp-correction")
       release[:correction] = release_page.at(".srp-correction").inner_html
     end  
-        
+
+    if release_page.at(".srp-contact")
+      contact = release_page.at(".srp-contact")
+      name = contact.search("p[1]").inner_text
+      dept = contact.search("p[2]").inner_text
+      tel = contact.search("p[4]").inner_text.gsub("Telephone: ", "")
+      email = contact.search("p[3]").inner_text.strip
+      release[:contact] = {
+        name: name,
+        dept: dept,
+        tel: tel,
+        email: email
+      }
+    end  
+    
+            
     File.open( File.join( ARGV[1], "release-ppi-#{date}.json"), "w") do |f|
       f.puts JSON.pretty_generate(release) 
     end

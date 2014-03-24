@@ -1,0 +1,17 @@
+{
+	"id": "/def/boolean",
+	"type": "concept-scheme",
+	"title": "Boolean Values",
+	"values": { 
+		"true": {
+			"id": "/def/boolean/true",
+			"notation": "true",
+			"title": "true" 
+		},
+		"false": {
+			"id": "/def/boolean/false",
+			"notation": "false",
+			"title": "false" 
+		}		
+	}
+}
