@@ -86,6 +86,7 @@
     
   </xsl:template>
 
+<!-- 
   <xsl:template match="msg:Contact">
     <xsl:text>{</xsl:text>  
       <xsl:for-each select="msg:*">
@@ -99,7 +100,8 @@
       </xsl:for-each>    
     <xsl:text>}</xsl:text>
   </xsl:template>
-      
+ -->
+       
   <xsl:template match="msg:Structure">
     <xsl:text>,</xsl:text>
     <xsl:call-template name="json-key">
