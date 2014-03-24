@@ -3,7 +3,7 @@
 	"slug": "periods",
 	"type": "concept-scheme",
 	"title": "Periods",
-	"description": "A controlled vocabulary for standard time periods, e.g. used to describe frequency of reporting, collection or analysis of statistics"
+	"description": "A controlled vocabulary for standard time periods, e.g. used to describe frequency of reporting, collection or analysis of statistics",
 	"values": { 
 		"monthly": {
 			"id": "/def/periods/monthly",

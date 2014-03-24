@@ -2,6 +2,7 @@
 	"id": "/statistics/producer-price-index",
 	"slug": "producer-price-index",
 	"title": "Producer Price Index",
+	"description": "A comprehensive selection of data on input and output index series. Contains producer price indices of materials and fuels purchased and output of manufacturing industry by broad sector.",
 	"type": "Series",
    	"coverage" : "http://statistics.data.gov.uk/doc/statistical-geography/K02000001",
    	"geographic-breakdown" : "UK and GB",
@@ -13,6 +14,5 @@
       "name" : "Kat Pegler",
       "telephone" : "+44 (0) 1633 456468",
       "uri" : "www.ons.gov.uk"
-   },
-   "description": "A comprehensive selection of data on input and output index series. Contains producer price indices of materials and fuels purchased and output of manufacturing industry by broad sector."
+   }
 }

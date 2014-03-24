@@ -3,7 +3,7 @@
 	"slug": "boolean",
 	"type": "concept-scheme",
 	"title": "Boolean Values",
-	"description": "Controlled values for indicating boolean values"
+	"description": "Controlled values for indicating boolean values",
 	"values": { 
 		"true": {
 			"id": "/def/boolean/true",

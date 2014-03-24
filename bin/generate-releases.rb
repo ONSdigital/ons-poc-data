@@ -42,8 +42,8 @@ Dir.glob("#{ARGV[0]}/*.html") do |file|
       email = contact.search("p[3]").inner_text.strip
       release[:contact] = {
         name: name,
-        dept: dept,
-        tel: tel,
+        department: dept,
+        telephone: tel,
         email: email
       }
     end  

@@ -99,26 +99,31 @@
           "provisional": {
             "id": "/def/attributes/provisional",
             "slug": "provisional",
-            "type": "attribute"   ,
-            "values": "/def/boolean"         
+            "type": "attribute",
+            "values": "/def/boolean",  
+            "values_slug": "boolean"       
           },
           "revised": {
             "id": "/def/attributes/revised",
             "slug": "revised",
-            "type": "attribute"       
+            "type": "attribute",
+            "values": "/def/boolean",  
+            "values_slug": "boolean"       
           },
           "qualifier": {
             "id": "/def/attributes/qualifier",
             "slug": "qualifier",
             "type": "attribute",
-            "values": "/def/data-qualifiers"
+            "values": "/def/data-qualifiers",  
+            "values_slug": "data-qualifiers"
           },  
-          "reporting_period": {
+          "reporting-period": {
             "id": "/def/dimensions/reporting-period",
             "slug": "reporting-period",
             "type": "dimension",
-            "values": "/def/periods"
-          },        
+            "values": "/def/periods",  
+            "values_slug": "periods"
+          }        
         </xsl:text>
         <xsl:for-each select="//structure:Components/structure:Dimension|//structure:Components/structure:TimeDimension|//structure:Components/structure:PrimaryMeasure|//structure:Components/structure:Attribute">
           <xsl:apply-templates select="."/>
@@ -196,6 +201,13 @@
               <xsl:with-param name="value" select="concat( '/def/', lower-case($conceptRef) )"/>
             </xsl:call-template>
 
+            <xsl:text>,</xsl:text>
+
+            <xsl:call-template name="json-key">
+              <xsl:with-param name="name" select="'values_slug'"/>
+              <xsl:with-param name="value" select="lower-case($conceptRef)"/>
+            </xsl:call-template>
+
           </xsl:if>                        
            
         <xsl:text>}</xsl:text>        
@@ -256,7 +268,11 @@
           <xsl:text>,</xsl:text>
           <xsl:call-template name="json-key">
             <xsl:with-param name="name" select="'title'"/>
+<!-- TODO
             <xsl:with-param name="value" select="//structure:Concept[@id=$conceptRef]/structure:Name"/>
+-->
+            <xsl:with-param name="value" select="$dimension-name"/>
+
           </xsl:call-template>                         
         <xsl:text>}</xsl:text>   
     </xsl:result-document>
