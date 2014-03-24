@@ -138,7 +138,7 @@
           
   </xsl:template>
   
-  <xsl:template match="structure:Dimension|structure:TimeDimension|structure:PrimaryMeasure|structure:Attribute">
+  <xsl:template match="structure:Dimension[@conceptRef!='Publication']|structure:TimeDimension|structure:PrimaryMeasure|structure:Attribute">
   
     <xsl:variable name="dimension-name">
       <xsl:choose>
@@ -200,7 +200,7 @@
     </xsl:call-template>
   </xsl:template>
   
-  <xsl:template match="structure:Dimension|structure:TimeDimension|structure:PrimaryMeasure|structure:Attribute" 
+  <xsl:template match="structure:Dimension[@conceptRef!='Publication']|structure:TimeDimension|structure:PrimaryMeasure|structure:Attribute" 
       mode="dimension-docs">
       <xsl:variable name="dimension-name">
       <xsl:choose>
@@ -293,7 +293,7 @@
     </xsl:result-document>  
   </xsl:template>
   
-  <xsl:template match="structure:Code">
+  <xsl:template match="structure:Code[@id != 'Publication']">
     <xsl:call-template name="json-key">
       <xsl:with-param name="name" select="@value"/>
       <xsl:with-param name="string" select="false"/>
