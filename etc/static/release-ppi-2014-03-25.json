@@ -1,0 +1,15 @@
+{
+  "title": "Release: Producer Price Index, February 2014",
+  "description": "A comprehensive selection of data on input and output index series. Contains producer price indices of materials and fuels purchased and output of manufacturing industry by broad sector
+.",
+  "state": "scheduled",
+  "id": "/statistics/producer-price-index/2014-03-25",
+  "series": "/statistics/producer-price-index",
+  "type": "Release",
+  "contact": {
+    "name": "Kat Pegler",
+    "dept": "Business Prices",
+    "tel": "+44 (0) 1633 456468",
+    "email": "ppi@ons.gsi.gov.uk"
+  }
+}
