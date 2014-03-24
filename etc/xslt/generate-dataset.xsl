@@ -82,39 +82,13 @@
       </xsl:call-template> 
 
       <xsl:text>,</xsl:text>
-  
-      <xsl:call-template name="json-key">
-        <xsl:with-param name="name" select="'contact'"/>
-        <xsl:with-param name="value">
-              <xsl:apply-templates select="msg:Sender/msg:Contact"/>
-        </xsl:with-param>
-        <xsl:with-param name="string" select="false()"/>
-      </xsl:call-template>
-      
-      <xsl:text>,</xsl:text>
-        
+          
       <xsl:call-template name="json-key">
         <xsl:with-param name="name" select="'published'"/>
         <xsl:with-param name="value" select="$extracted"/>
       </xsl:call-template>
     
   </xsl:template>
-
-<!-- 
-  <xsl:template match="msg:Contact">
-    <xsl:text>{</xsl:text>  
-      <xsl:for-each select="msg:*">
-        <xsl:call-template name="json-key">
-          <xsl:with-param name="name" select="lower-case(local-name())" />
-          <xsl:with-param name="value" select="."/>
-        </xsl:call-template> 
-        <xsl:if test="position() != last()">
-          <xsl:text>,</xsl:text>
-        </xsl:if>
-      </xsl:for-each>    
-    <xsl:text>}</xsl:text>
-  </xsl:template>
- -->
        
   <xsl:template match="msg:Structure">
     <xsl:text>,</xsl:text>
@@ -283,13 +257,13 @@
           <xsl:call-template name="json-key">
             <xsl:with-param name="name" select="'title'"/>
             <xsl:with-param name="value" select="//structure:Concept[@id=$conceptRef]/structure:Name"/>
-          </xsl:call-template>               
+          </xsl:call-template>                         
         <xsl:text>}</xsl:text>   
     </xsl:result-document>
   
   </xsl:template>
   
-  <xsl:template match="structure:CodeList">
+  <xsl:template match="structure:CodeList[@id!='Publication']">
     <xsl:variable name="cs-filename" select="concat( $output_dir, '/cs', '-', lower-case(@id), '.json' )"/>
     <xsl:result-document href="{$cs-filename}">
         <xsl:text>{</xsl:text>   
@@ -332,7 +306,7 @@
     </xsl:result-document>  
   </xsl:template>
   
-  <xsl:template match="structure:Code[@id != 'Publication']">
+  <xsl:template match="structure:Code">
     <xsl:call-template name="json-key">
       <xsl:with-param name="name" select="@value"/>
       <xsl:with-param name="string" select="false"/>
@@ -406,10 +380,33 @@
             <xsl:text>,</xsl:text>
           </xsl:if>
           
+          <xsl:variable name="desc"><xsl:value-of select="structure:Description/text()"/></xsl:variable>
+          <xsl:variable name="title">
+           <xsl:analyze-string select="$desc"
+                 regex="(PPI: )?([0-9])+:\s*(.+)">          
+              <xsl:matching-substring>
+                <xsl:value-of select="regex-group(3)"/>
+              </xsl:matching-substring>
+          
+              <xsl:non-matching-substring>
+                  <xsl:value-of select="$desc"/>
+              </xsl:non-matching-substring>
+
+            </xsl:analyze-string>
+          </xsl:variable>
+          
           <xsl:call-template name="json-key">
             <xsl:with-param name="name" select="'title'"/>
-            <xsl:with-param name="value" select="structure:Description"/>
+            <xsl:with-param name="value" select="$title"/>
           </xsl:call-template>
+
+          <xsl:text>,</xsl:text>
+
+          <xsl:call-template name="json-key">
+            <xsl:with-param name="name" select="'description'"/>
+            <xsl:with-param name="value" select="$desc"/>
+          </xsl:call-template>
+
           <xsl:text>}</xsl:text>    
       
       </xsl:with-param>    

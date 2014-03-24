@@ -3,21 +3,25 @@
 	"slug": "periods",
 	"type": "concept-scheme",
 	"title": "Periods",
+	"description": "A controlled vocabulary for standard time periods, e.g. used to describe frequency of reporting, collection or analysis of statistics"
 	"values": { 
 		"monthly": {
 			"id": "/def/periods/monthly",
 			"notation": "monthly",
-			"title": "Monthly" 
+			"title": "Monthly",
+			"description": "Occurring once a month"
 		},
 		"annual": {
 			"id": "/def/periods/annual",
 			"notation": "annual",
-			"title": "Annual" 
+			"title": "Annual",
+			"description": "Occurring once a year"
 		},
 		"quarterly": {
 			"id": "/def/periods/quarterly",
 			"notation": "quarterly",
-			"title": "Quarterly" 
+			"title": "Quarterly",
+			"description": "Occuring 4 times a year"
 		}
 	}
 }

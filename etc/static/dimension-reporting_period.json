@@ -2,5 +2,6 @@
 	"id": "/def/dimensions/reporting-period",
 	"slug": "reporting-period",
 	"title": "Reporting Period",
-	"type": "dimension"
+	"type": "dimension",
+	"description": "Reporting Period"
 }        

@@ -2,12 +2,14 @@
 	"id": "/def/units",
 	"slug": "units",
 	"type": "concept-scheme",
-	"title": "Units",
+	"title": "Units of Measure",
+	"description": "This concept scheme provides a controlled vocabulary for describing units of measure"
 	"values": { 
 		"percentage": {
 			"id": "/def/units/percentage",
 			"notation": "percentage",
-			"title": "Percentage" 
+			"title": "Percentage",
+			"description": "a number or ratio expressed as a fraction of 100" 
 		}
 	}
 }

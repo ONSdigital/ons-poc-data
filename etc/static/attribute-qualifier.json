@@ -2,5 +2,6 @@
 	"id": "/def/attribute/qualifier",
 	"slug": "qualifier",
 	"type": "attribute",
-	"title": "Qualifier"
+	"title": "Qualifier",
+	"description": "Index values can be flagged with a qualifier when they are considered less reliable, e.g. due to a lack of market coverage."
 }

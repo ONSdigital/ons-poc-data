@@ -9,8 +9,10 @@ Dir.glob("#{ARGV[0]}/*.html") do |file|
     date = Date.parse( date ).strftime("%Y-%m-%d")
     release = {
       title: release_page.at("h1").inner_text.strip,
+      description: "A comprehensive selection of data on input and output index series. Contains producer price indices of materials and fuels purchased and output of manufacturing industry by broad sector.",
       published: date,
       slug: date,
+      state: "released",
       id: "/statistics/producer-price-index/#{date}",
       series_slug: "producer-price-index",
       series: "/statistics/producer-price-index",
@@ -21,7 +23,7 @@ Dir.glob("#{ARGV[0]}/*.html") do |file|
     if next_release
       next_release = next_release.inner_text.strip.match( /\Next edition:\s+([a-zA-Z0-9 ]+)/ )[1]
       next_release = Date.parse( next_release ).strftime("%Y-%m-%d")
-      release[:superceded_by] = "/statistics/producer-price-index/#{next_release}"
+      release[:superseded_by] = "/statistics/producer-price-index/#{next_release}"
     end
     
     if release_page.at(".srp-key-points")
@@ -55,3 +57,4 @@ Dir.glob("#{ARGV[0]}/*.html") do |file|
   end
 
 end
+

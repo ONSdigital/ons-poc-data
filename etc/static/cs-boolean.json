@@ -3,16 +3,19 @@
 	"slug": "boolean",
 	"type": "concept-scheme",
 	"title": "Boolean Values",
+	"description": "Controlled values for indicating boolean values"
 	"values": { 
 		"true": {
 			"id": "/def/boolean/true",
 			"notation": "true",
-			"title": "true" 
+			"title": "true",
+			"description": "True" 
 		},
 		"false": {
 			"id": "/def/boolean/false",
 			"notation": "false",
-			"title": "false" 
+			"title": "false",
+			"description": "False"
 		}		
 	}
 }

@@ -2,5 +2,6 @@
 	"id": "/def/attributes/unit-measure",
 	"slug": "unit-measure",
 	"type": "attribute",
-	"title": "Unit Measure"
+	"title": "Unit Measure",
+	"description": "The unit in which the data values are measured"
 }
