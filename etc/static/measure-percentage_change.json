@@ -1,5 +1,6 @@
 {
-	"id": "/def/measures/percentage_change",
+	"id": "/def/measures/percentage-change",
+	"slug": "percentage-change",
 	"type":"primarymeasure",
 	"title":"Percentage Change"
 }

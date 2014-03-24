@@ -1,5 +1,6 @@
 {
 	"id": "/def/periods",
+	"slug": "periods",
 	"type": "concept-scheme",
 	"title": "Periods",
 	"values": { 

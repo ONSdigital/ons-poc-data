@@ -1,5 +1,6 @@
 {
 	"id": "/def/boolean",
+	"slug": "boolean",
 	"type": "concept-scheme",
 	"title": "Boolean Values",
 	"values": { 

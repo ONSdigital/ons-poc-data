@@ -65,6 +65,27 @@
       </xsl:call-template>
 
       <xsl:text>,</xsl:text>
+
+      <xsl:call-template name="json-key">
+        <xsl:with-param name="name" select="'slug'"/>
+        <xsl:with-param name="value" select="$slug"/>
+      </xsl:call-template>
+
+      <xsl:text>,</xsl:text>
+
+      <xsl:call-template name="json-key">
+        <xsl:with-param name="name" select="'release_slug'"/>
+        <xsl:with-param name="value" select="$published"/>
+      </xsl:call-template>
+
+      <xsl:text>,</xsl:text>
+
+      <xsl:call-template name="json-key">
+        <xsl:with-param name="name" select="'series_slug'"/>
+        <xsl:with-param name="value" select="'producer-price-index'"/>
+      </xsl:call-template>
+
+      <xsl:text>,</xsl:text>
       
       <xsl:call-template name="json-key">
         <xsl:with-param name="name" select="'type'"/>

@@ -1,5 +1,6 @@
 {
 	"id": "/statistics/producer-price-index",
+	"slug": "producer-price-index",
 	"title": "Producer Price Index",
 	"type": "Series",
    	"coverage" : "http://statistics.data.gov.uk/doc/statistical-geography/K02000001",

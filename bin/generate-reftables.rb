@@ -19,6 +19,8 @@ worksheets.each do |worksheet|
     type: "Dataset",
     release: release,
     id: "#{release}/#{dataset_slug}",
+    slug: dataset_slug,
+    release_slug: release,
     source: "#{release}/ppi-csdb-ds",
     coverage: "http://statistics.data.gov.uk/doc/statistical-geography/K02000001",
     title: spreadsheet.sheet(worksheet).cell(1, "B"),
@@ -26,26 +28,34 @@ worksheets.each do |worksheet|
     structure: {
       product: {
         id: "/def/dimensions/product",
+        slug: "product",
         type: "dimension",
-        values: "/def/cdid"
+        values: "/def/cdid",
+        values_slug: "cdid"
       },
       date: {
          id: "/def/dimensions/date",
+         slug: "date",
          type: "timedimension"
       },
       unit_measure: {
         id: "/def/attributes/unit-measure",
+        slug: "unit-measure",
         type: "attribute",
-        values: "/def/units"
+        values: "/def/units",
+        values_slug: "units"
       },
       percentage_change: {
          id: "/def/measures/percentage-change",
+         slug: "percentage-change",
          type: "measure"
       },
       reporting_period: {
          id: "/def/dimensions/reporting-period",
+         slug: "reporting-period",
          type: "dimension",
-         values: "/def/periods" 
+         values: "/def/periods",
+         values_slug: "periods" 
       }    
     }
   }
@@ -67,6 +77,9 @@ worksheets.each do |worksheet|
       File.open( File.join( output_dir, "#{observation_slug}.json" ), "w") do |f|
         f.puts JSON.pretty_generate( {
           id: "#{release}/#{dataset_slug}/#{observation_slug}",
+          slug: observation_slug,
+          dataset_slug: dataset_slug,
+          release_slug: release,
           type: "Observation",
           release: release,
           dataset: "#{release}/#{dataset_slug}",

@@ -10,7 +10,9 @@ Dir.glob("#{ARGV[0]}/*.html") do |file|
     release = {
       title: release_page.at("h1").inner_text.strip,
       published: date,
+      slug: date,
       id: "/statistics/producer-price-index/#{date}",
+      series_slug: "producer-price-index",
       series: "/statistics/producer-price-index",
       type: "Release"
     }

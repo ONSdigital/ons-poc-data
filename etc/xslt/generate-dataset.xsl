@@ -56,6 +56,20 @@
       <xsl:text>,</xsl:text>
 
       <xsl:call-template name="json-key">
+        <xsl:with-param name="name" select="'slug'"/>
+        <xsl:with-param name="value" select="$dataset-id"/>
+      </xsl:call-template>
+
+      <xsl:text>,</xsl:text>
+
+      <xsl:call-template name="json-key">
+        <xsl:with-param name="name" select="'release_slug'"/>
+        <xsl:with-param name="value" select="$published"/>
+      </xsl:call-template>
+
+      <xsl:text>,</xsl:text>
+
+      <xsl:call-template name="json-key">
         <xsl:with-param name="name" select="'type'"/>
         <xsl:with-param name="value" select="'DataSet'"/>
       </xsl:call-template> 
@@ -110,20 +124,24 @@
         <xsl:text>{
           "provisional": {
             "id": "/def/attributes/provisional",
+            "slug": "provisional",
             "type": "attribute"   ,
             "values": "/def/boolean"         
           },
           "revised": {
             "id": "/def/attributes/revised",
+            "slug": "revised",
             "type": "attribute"       
           },
           "qualifier": {
             "id": "/def/attributes/qualifier",
+            "slug": "qualifier",
             "type": "attribute",
             "values": "/def/data-qualifiers"
           },  
           "reporting_period": {
             "id": "/def/dimensions/reporting-period",
+            "slug": "reporting-period",
             "type": "dimension",
             "values": "/def/periods"
           },        
@@ -183,6 +201,14 @@
             <xsl:with-param name="value" select="concat( '/def/', $dimension-type, 's/', $dimension-name )"/>
           </xsl:call-template>
           <xsl:text>,</xsl:text>
+
+          <xsl:call-template name="json-key">
+            <xsl:with-param name="name" select="'slug'"/>
+            <xsl:with-param name="value" select="$dimension-name"/>
+          </xsl:call-template>
+          
+          <xsl:text>,</xsl:text>
+
           <xsl:call-template name="json-key">
             <xsl:with-param name="name" select="'type'"/>
             <xsl:with-param name="value" select="lower-case(local-name())"/>
@@ -245,6 +271,11 @@
           </xsl:call-template>
           <xsl:text>,</xsl:text>
           <xsl:call-template name="json-key">
+              <xsl:with-param name="name" select="'slug'"/>
+              <xsl:with-param name="value" select="$dimension-name"/>
+          </xsl:call-template>
+          <xsl:text>,</xsl:text>
+          <xsl:call-template name="json-key">
               <xsl:with-param name="name" select="'type'"/>
               <xsl:with-param name="value" select="lower-case(local-name())"/>
           </xsl:call-template>     
@@ -265,6 +296,11 @@
           <xsl:call-template name="json-key">
               <xsl:with-param name="name" select="'id'"/>
               <xsl:with-param name="value" select="concat( '/def/', lower-case(@id) )"/>
+          </xsl:call-template>
+          <xsl:text>,</xsl:text>
+          <xsl:call-template name="json-key">
+              <xsl:with-param name="name" select="'slug'"/>
+              <xsl:with-param name="value" select="lower-case(@id)"/>
           </xsl:call-template>
           <xsl:text>,</xsl:text>
           <xsl:call-template name="json-key">
