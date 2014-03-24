@@ -9,6 +9,7 @@ Dir.glob("#{ARGV[0]}/*.html") do |file|
     date = Date.parse( date ).strftime("%Y-%m-%d")
     release = {
       title: release_page.at("h1").inner_text.strip,
+      description: "A comprehensive selection of data on input and output index series. Contains producer price indices of materials and fuels purchased and output of manufacturing industry by broad sector.",
       published: date,
       id: "/statistics/producer-price-index/#{date}",
       series: "/statistics/producer-price-index",
