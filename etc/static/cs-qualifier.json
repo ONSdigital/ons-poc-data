@@ -2,11 +2,13 @@
 	"id": "/def/data-qualifiers",
 	"type": "concept-scheme",
 	"title": "Data Qualifiers",
+	"description": "This concept scheme provides a controlled vocabulary for capturing qualifiers that may be associated with observed values"
 	"values": { 
 		"coverage": {
 			"id": "/def/data-qualifiers/coverage",
 			"notation": "coverage",
-			"title": "Limited Coverage" 
+			"title": "Limited Coverage",
+			"description": "The data being measured is based on statistics that are known to have limited coverage, e.g. of a specific market sector"
 		}
 	}
 }

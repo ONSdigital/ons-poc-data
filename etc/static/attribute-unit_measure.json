@@ -1,5 +1,6 @@
 {
 	"id": "/def/attributes/unit_measure",
 	"type": "attribute",
-	"title": "Unit Measure"
+	"title": "Unit Measure",
+	"description": "The unit in which the data values are measured"
 }

@@ -1,5 +1,6 @@
 {
 	"id": "/def/attributes/revised",
 	"type": "attribute",
-	"title": "Revised"          
+	"title": "Revised",
+	"description": "Occasionally, information is received that produces a change in an index value that has already been published as firm. Where the change is significant, index values are recalculated and annotated with a value of 'true'."          
 }
