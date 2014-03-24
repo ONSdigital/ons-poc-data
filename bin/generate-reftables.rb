@@ -21,7 +21,8 @@ worksheets.each do |worksheet|
     id: "#{release}/#{dataset_slug}",
     source: "#{release}/ppi-csdb-ds",
     coverage: "http://statistics.data.gov.uk/doc/statistical-geography/K02000001",
-    title: spreadsheet.sheet(worksheet).cell(1, "B"),
+    title: "Producer Price Indices #{date}. #{spreadsheet.sheet(worksheet).cell(1, "B")}",
+    description: "#{ worksheet.start_with?("Ou") ? "Output" : "Input" } price indices showing higher, lower and equal to.",
     published: Date.parse( date ).strftime("%Y-%m-%d"),
     structure: {
       product: {
@@ -31,7 +32,8 @@ worksheets.each do |worksheet|
       },
       date: {
          id: "/def/dimensions/date",
-         type: "timedimension"
+         type: "timedimension",
+         values: "/def/date "
       },
       unit_measure: {
         id: "/def/attributes/unit-measure",
