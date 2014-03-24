@@ -108,7 +108,8 @@
         <xsl:text>{
           "provisional": {
             "id": "/def/attributes/provisional",
-            "type": "attribute"            
+            "type": "attribute"   ,
+            "values": "/def/boolean"         
           },
           "revised": {
             "id": "/def/attributes/revised",
