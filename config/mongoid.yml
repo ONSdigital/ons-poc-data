@@ -1,0 +1,20 @@
+test:
+  sessions:
+    default:
+      database: ons_poc_data_test
+      hosts: 
+        - localhost:27017
+development:
+  sessions:
+    default:
+      database: ons_poc_data_development
+      hosts: 
+        - localhost:27017
+      logger: false
+      use_activesupport_time_zone: true
+default:
+  sessions:
+    default:
+      database: mongoid
+      hosts:
+        - localhost:27017

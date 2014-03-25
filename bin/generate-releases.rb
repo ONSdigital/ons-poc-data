@@ -11,8 +11,10 @@ Dir.glob("#{ARGV[0]}/*.html") do |file|
       title: release_page.at("h1").inner_text.strip,
       description: "A comprehensive selection of data on input and output index series. Contains producer price indices of materials and fuels purchased and output of manufacturing industry by broad sector.",
       published: date,
+      slug: date,
       state: "released",
       id: "/statistics/producer-price-index/#{date}",
+      series_slug: "producer-price-index",
       series: "/statistics/producer-price-index",
       type: "Release"
     }
@@ -40,8 +42,8 @@ Dir.glob("#{ARGV[0]}/*.html") do |file|
       email = contact.search("p[3]").inner_text.strip
       release[:contact] = {
         name: name,
-        dept: dept,
-        tel: tel,
+        department: dept,
+        telephone: tel,
         email: email
       }
     end  

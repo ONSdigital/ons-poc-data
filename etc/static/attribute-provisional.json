@@ -1,5 +1,6 @@
 {
 	"id": "/def/attributes/provisional",
+	"slug": "provisional",
 	"type": "attribute",
 	"title": "Provisional",
 	"description": "Indices for the latest two months are provisional and flagged with a 'true' value due to the level of imputation present for items where the latest data is not available"

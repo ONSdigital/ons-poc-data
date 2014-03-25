@@ -1,8 +1,9 @@
 {
 	"id": "/def/units",
+	"slug": "units",
 	"type": "concept-scheme",
 	"title": "Units of Measure",
-	"description": "This concept scheme provides a controlled vocabulary for describing units of measure"
+	"description": "This concept scheme provides a controlled vocabulary for describing units of measure",
 	"values": { 
 		"percentage": {
 			"id": "/def/units/percentage",

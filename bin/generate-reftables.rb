@@ -14,40 +14,52 @@ date = spreadsheet.sheet("Cover sheet").cell(16, "B")
   
 worksheets.each do |worksheet|
   dataset_slug = worksheet.downcase
-  date_month = Date.parse( date ).strftime("%Y%^b")
+  date_month = spreadsheet.sheet(worksheet).cell(1, "F").strftime("%Y%^b")
+  published = Date.parse( date ).strftime("%Y-%m-%d")
   dataset = {
     type: "Dataset",
     release: release,
     id: "#{release}/#{dataset_slug}",
+    slug: dataset_slug,
+    release_slug: published,
     source: "#{release}/ppi-csdb-ds",
     coverage: "http://statistics.data.gov.uk/doc/statistical-geography/K02000001",
     title: "Producer Price Indices #{date}. #{spreadsheet.sheet(worksheet).cell(1, "B")}",
     description: "#{ worksheet.start_with?("Ou") ? "Output" : "Input" } price indices showing higher, lower and equal to.",
-    published: Date.parse( date ).strftime("%Y-%m-%d"),
+    published: published,
     structure: {
       product: {
         id: "/def/dimensions/product",
+        slug: "product",
         type: "dimension",
-        values: "/def/cdid"
+        values: "/def/cdid",
+        values_slug: "cdid"
       },
       date: {
          id: "/def/dimensions/date",
+         slug: "date",
          type: "timedimension",
-         values: "/def/date "
+         values: "/def/date",
+         values_slug: "date"
       },
-      unit_measure: {
+      "unit-measure" => {
         id: "/def/attributes/unit-measure",
+        slug: "unit-measure",
         type: "attribute",
-        values: "/def/units"
+        values: "/def/units",
+        values_slug: "units"
       },
-      percentage_change: {
+      "percentage-change" => {
          id: "/def/measures/percentage-change",
+         slug: "percentage-change",
          type: "measure"
       },
-      reporting_period: {
+      "reporting-period" => {
          id: "/def/dimensions/reporting-period",
+         slug: "reporting-period",
          type: "dimension",
-         values: "/def/periods" 
+         values: "/def/periods",
+         values_slug: "periods" 
       }    
     }
   }
@@ -69,6 +81,9 @@ worksheets.each do |worksheet|
       File.open( File.join( output_dir, "#{observation_slug}.json" ), "w") do |f|
         f.puts JSON.pretty_generate( {
           id: "#{release}/#{dataset_slug}/#{observation_slug}",
+          slug: observation_slug,
+          dataset_slug: dataset_slug,
+          release_slug: release,
           type: "Observation",
           release: release,
           dataset: "#{release}/#{dataset_slug}",

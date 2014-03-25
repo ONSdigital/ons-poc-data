@@ -8,6 +8,8 @@ JSON_DIR="data/json"
 
 CLEAN.include ["#{JSON_DIR}/*.json", "#{JSON_DIR}/*.gz"]
 
+MONGO_DB = ENV["ONS_POC_DB"] || "ons_poc_data_development"  
+  
 def osx?
   RUBY_PLATFORM.downcase =~ /darwin/
 end
@@ -80,6 +82,16 @@ task :convert => [:download, :generate]
   
 task :package => [:convert] do
   sh %{gzip #{JSON_DIR}/*} 
+end
+
+desc "Clean mongo database"
+task :clean_db do
+  sh %{mongo #{MONGO_DB} --eval "db.dropDatabase()"}
+end
+
+desc "Load mongo database"
+task :load do
+  sh %{ruby bin/load-db.rb #{JSON_DIR} }
 end
 
 task :default => :convert
