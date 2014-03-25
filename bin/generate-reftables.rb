@@ -53,13 +53,6 @@ worksheets.each do |worksheet|
          id: "/def/measures/percentage-change",
          slug: "percentage-change",
          type: "measure"
-      },
-      "reporting-period" => {
-         id: "/def/dimensions/reporting-period",
-         slug: "reporting-period",
-         type: "dimension",
-         values: "/def/periods",
-         values_slug: "periods" 
       }    
     }
   }
@@ -91,8 +84,7 @@ worksheets.each do |worksheet|
           date: date_month,
           notes: notes,
           percentage_change: rate,
-          unit_measure: "percentage",
-          reporting_period: worksheet.include?("12mth") ? "annual" : "monthly"
+          unit_measure: "percentage"
         })
       end
     end

@@ -52,6 +52,7 @@ task :generate_dataset do
   else
     sh %{saxonb-xslt #{flags}}
   end
+  sh %{ruby bin/patch-date-scheme.rb #{JSON_DIR}/cs-date.json }
 end
 
 desc "Generate the observations (obs-*.json) for the main dataset using XSLT"

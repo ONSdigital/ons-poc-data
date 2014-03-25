@@ -116,14 +116,7 @@
             "type": "attribute",
             "values": "/def/data-qualifiers",  
             "values_slug": "data-qualifiers"
-          },  
-          "reporting-period": {
-            "id": "/def/dimensions/reporting-period",
-            "slug": "reporting-period",
-            "type": "dimension",
-            "values": "/def/periods",  
-            "values_slug": "periods"
-          }        
+          }       
         </xsl:text>
         <xsl:for-each select="//structure:Components/structure:Dimension|//structure:Components/structure:TimeDimension|//structure:Components/structure:PrimaryMeasure|//structure:Components/structure:Attribute">
           <xsl:apply-templates select="."/>
