@@ -36,8 +36,7 @@ end
 process("attribute-*.json") do |json|
   attribute = DataAttribute.new( 
       title: json["title"],
-      #FIXME name?
-      name: json["title"],
+      name: json["slug"],
       slug: json["slug"] 
    )  
 end
@@ -46,8 +45,7 @@ end
 process("dimension-*.json") do |json|
   dimension = Dimension.new( 
       title: json["title"],
-      #FIXME name?
-      name: json["title"],
+      name: json["slug"],
       slug: json["slug"], 
       description: json["description"],
       dimension_type: json["type"] 
@@ -56,8 +54,7 @@ end
 
 #Measures
 process("measure-*.json") do |json|
-  #FIXME pending changes on measures
-  measure = Measure.new( slug: json["slug"], name: json["title"], title: json["title"], description: json["description"])
+  measure = Measure.new( slug: json["slug"], name: json["slug"], title: json["title"], description: json["description"])
 end
 
 #Series
