@@ -58,12 +58,14 @@ process("measure-*.json") do |json|
 end
 
 #Series
-#FIXME language, frequency, coverage, geo breakdown?
+#FIXME coverage, geo breakdown?
 process("series-*.json") do |json|
   series = Series.new( title: json["title"], 
                        slug: json["slug"], 
                        description: json["description"],
-                       contact: Contact.new( json["contact"] ) )
+                       contact: Contact.new( json["contact"] ),
+                       language: json["language"], 
+                       frequency: json["frequency"] )
 end
 
 #Release
@@ -73,9 +75,9 @@ process("release-*.json") do |json|
                        slug: json["slug"], 
                        description: json["description"],
                        published: json["published"],
-                       #FIXME comments
-                       #FIXME contacts
-                       #FIXME state
+                       comments: json["comments"],
+                       contact: json["contact"],
+                       state: json["state"],
                        #FIXME superseded
                        notes: json["notes"],
                        series: series)
@@ -120,6 +122,12 @@ process("dataset-*.json") do |json|
                        dimensions: dimensions, 
                        data_attributes: data_attributes,
                        measures: measures)
+  #TEMPORARY: measures need to be linked to dataset
+  measures.each do |m|
+    m.dataset = dataset
+    m.save
+  end
+  dataset
 end
   
 #Observation
