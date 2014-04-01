@@ -2,8 +2,11 @@
   "title": "Release: Producer Price Index, February 2014",
   "description": "A comprehensive selection of data on input and output index series. Contains producer price indices of materials and fuels purchased and output of manufacturing industry by broad sector",
   "state": "scheduled",
+  "published": "2014-03-25",
+  "slug": "2014-03-25",
   "id": "/statistics/producer-price-index/2014-03-25",
   "series": "/statistics/producer-price-index",
+  "series_slug": "producer-price-index",
   "type": "Release",
   "contact": {
     "name": "Kat Pegler",

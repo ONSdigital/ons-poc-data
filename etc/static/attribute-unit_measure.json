@@ -1,6 +1,6 @@
 {
-	"id": "/def/attributes/unit-measure",
-	"slug": "unit-measure",
+	"id": "/def/attributes/unit_measure",
+	"slug": "unit_measure",
 	"type": "attribute",
 	"title": "Unit Measure",
 	"description": "The unit in which the data values are measured"

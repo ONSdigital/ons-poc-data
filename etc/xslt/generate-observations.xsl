@@ -205,7 +205,7 @@
 
       <xsl:if test="../@Date = ('2013SEP','2013OCT','2013NOV','2013DEC', '2014JAN') and local-name() = ('MC6A','JU5C')">
         <xsl:call-template name="json-key">
-          <xsl:with-param name="name" select="'unreliable'"/>
+          <xsl:with-param name="name" select="'qualifier'"/>
           <xsl:with-param name="value" select="'coverage'"/>
         </xsl:call-template>
 

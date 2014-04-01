@@ -1,7 +1,7 @@
 {
-	"id": "/def/measures/percentage-change",
-	"slug": "percentage-change",
-	"type":"primarymeasure",
+	"id": "/def/measures/percentage_change",
+	"slug": "percentage_change",
+	"type":"measure",
 	"title":"Percentage Change",
 	"description": "A percentage change is a way to express a change in a variable. It represents the relative change between the old value and the new one."
 }

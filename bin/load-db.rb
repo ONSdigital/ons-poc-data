@@ -10,7 +10,7 @@ def save_or_exit(model, json)
   if !model.save
     puts json
     puts model.errors.inspect
-    exit
+    #exit
   end
 end
 
@@ -24,63 +24,67 @@ def process(glob)
 end
 
 process( "cs-*.json" ) do |json|
-  cs = ConceptScheme.new( 
-      title: json["title"], 
-      slug: json["slug"], 
-      description: json["description"], 
-      values: json["values"] 
-  )  
+  cs = ConceptScheme.find_or_create_by( slug: json["slug"] )
+  cs.title = json["title"]
+  cs.description = json["description"]
+  cs.values = json["values"]
+  cs
 end
 
 #Attributes
 process("attribute-*.json") do |json|
-  attribute = DataAttribute.new( 
-      title: json["title"],
-      name: json["slug"],
-      slug: json["slug"] 
-   )  
+  attribute = DataAttribute.find_or_create_by( slug: json["slug"] )
+  attribute.title = json["title"]
+  attribute.name = json["slug"]
+  attribute.description = json["description"]
+  attribute
 end
 
 #Dimensions
 process("dimension-*.json") do |json|
-  dimension = Dimension.new( 
-      title: json["title"],
-      name: json["slug"],
-      slug: json["slug"], 
-      description: json["description"],
-      dimension_type: json["type"] 
-  )  
+  dimension = Dimension.find_or_create_by( slug: json["slug"] )
+  dimension.title = json["title"]
+  dimension.name = json["slug"]
+  dimension.description = json["description"]
+  dimension.dimension_type = json["type"]
+  dimension
 end
 
 #Measures
 process("measure-*.json") do |json|
-  measure = Measure.new( slug: json["slug"], name: json["slug"], title: json["title"], description: json["description"])
+  measure = Measure.find_or_create_by( slug: json["slug"] )
+  measure.title = json["title"]
+  measure.name = json["slug"]
+  measure.description = json["description"]
+  measure
 end
 
 #Series
 #FIXME coverage, geo breakdown?
 process("series-*.json") do |json|
-  series = Series.new( title: json["title"], 
-                       slug: json["slug"], 
-                       description: json["description"],
-                       contact: Contact.new( json["contact"] ),
-                       language: json["language"], 
-                       frequency: json["frequency"] )
+  series = Series.find_or_create_by( slug: json["slug"])
+  series.title = json["title"]
+  series.description = json["description"]
+  series.contact = Contact.new( json["contact"] )
+  series.language = json["language"]
+  series.frequency = json["frequency"]
+  series
 end
 
 #Release
 process("release-*.json") do |json|
   series = Series.where( slug: json["series_slug"] ).first
-  release = Release.new( title: json["title"], 
-                       slug: json["slug"], 
-                       description: json["description"],
-                       published: json["published"],
-                       comments: json["comments"],
-                       contact: json["contact"],
-                       state: json["state"],
-                       #FIXME superseded
-                       notes: json["notes"],
-                       series: series)
+  release = Release.find_or_create_by( slug: json["slug"] )
+  release.title = json["title"]
+  release.description = json["description"]
+  release.published = json["published"]
+  release.comments = json["comments"]
+  release.contact = Contact.new( json["contact"] )
+  release.state = json["state"]
+  release.notes = json["notes"]
+  release.series = series
+  #FIXME superseded
+  release
 end
 
 #Dataset
@@ -105,28 +109,23 @@ process("dataset-*.json") do |json|
       dimensions[dim.id] = cs.id
     when "measure"
       measure = Measure.where( slug: key ).first
-      measures << measure
+      measures << measure.id
     when "primarymeasure"
       measure = Measure.where( slug: key ).first
-      measures << measure
+      measures << measure.id
     else
       puts value
       puts "Unexpected data in the loading area?!"
       exit
     end
   end
-  dataset = Dataset.new( title: json["title"], 
-                       slug: json["slug"], 
-                       description: json["description"],
-                       release: release,
-                       dimensions: dimensions, 
-                       data_attributes: data_attributes,
-                       measures: measures)
-  #TEMPORARY: measures need to be linked to dataset
-  measures.each do |m|
-    m.dataset = dataset
-    m.save
-  end
+  dataset = Dataset.find_or_create_by( slug: json["slug"] )
+  dataset.title = json["title"]
+  dataset.description = json["description"]
+  dataset.release = release
+  dataset.dimensions = dimensions
+  dataset.data_attributes = data_attributes
+  dataset.measures = measures
   dataset
 end
   
@@ -135,5 +134,7 @@ process("obs-*.json") do |json|
   dataset = Dataset.where( slug: json["dataset_slug"] ).first
   json = json.delete_if { |k,v| ["id", "release_slug", "dataset_slug", "series_slug", "type", "release", "series", "dataset"].include? k }
   json[:dataset] = dataset
-  obs = Observation.new( json )
+  obs = Observation.find_or_create_by( slug: json["slug"], dataset: dataset )  
+  obs.update_attributes( json )
+  obs
 end

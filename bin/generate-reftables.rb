@@ -24,7 +24,7 @@ worksheets.each do |worksheet|
     release_slug: published,
     source: "#{release}/ppi-csdb-ds",
     coverage: "http://statistics.data.gov.uk/doc/statistical-geography/K02000001",
-    title: "Producer Price Indices #{date}. #{spreadsheet.sheet(worksheet).cell(1, "B")}",
+    title: "#{spreadsheet.sheet(worksheet).cell(1, "B")}",
     description: "#{ worksheet.start_with?("Ou") ? "Output" : "Input" } price indices showing higher, lower and equal to.",
     published: published,
     structure: {
@@ -42,16 +42,16 @@ worksheets.each do |worksheet|
          values: "/def/date",
          values_slug: "date"
       },
-      "unit-measure" => {
-        id: "/def/attributes/unit-measure",
-        slug: "unit-measure",
+      "unit_measure" => {
+        id: "/def/attributes/unit_measure",
+        slug: "unit_measure",
         type: "attribute",
         values: "/def/units",
         values_slug: "units"
       },
-      "percentage-change" => {
-         id: "/def/measures/percentage-change",
-         slug: "percentage-change",
+      "percentage_change" => {
+         id: "/def/measures/percentage_change",
+         slug: "percentage_change",
          type: "measure"
       }    
     }
@@ -80,7 +80,7 @@ worksheets.each do |worksheet|
           type: "Observation",
           release: release,
           dataset: "#{release}/#{dataset_slug}",
-          cdid: cdid,
+          product: cdid,
           date: date_month,
           notes: notes,
           percentage_change: rate,

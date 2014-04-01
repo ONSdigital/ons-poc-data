@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/ONSdigital/ons_data_models.git
-  revision: 7b6d509cd2569b91e429001a88b12cede93b5791
+  revision: 82eaf88a8b3e64bd8cd34178e43ab8b3db4634ef
   specs:
     ons_data_models (0.0.1)
       mime-types (~> 1.16)
@@ -37,6 +37,7 @@ GEM
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
+    rake (10.1.0)
     roo (1.13.2)
       nokogiri
       rubyzip
@@ -56,4 +57,5 @@ DEPENDENCIES
   json
   ons_data_models!
   pry
+  rake
   roo
