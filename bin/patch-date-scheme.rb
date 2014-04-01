@@ -46,7 +46,7 @@ scheme["values"].each do |key, value|
     value["next"] = [ { "period" => "quarter", "value" => next_quarter }, { "period" => "year", "value" => "#{year+1}Q#{quarter}" } ]
 
     #broader: year
-    value["broader"] = [ {"period" => "year", "value" => year } ]
+    value["broader"] = [ {"period" => "year", "value" => year.to_s } ]
       
     #months
     value["narrower"] = []
@@ -70,7 +70,7 @@ scheme["values"].each do |key, value|
     value["next"] = [ { "period" => "month", "value" => next_month }, { "period" => "year", "value" => "#{year+1}#{MONTHS[month]}" } ]
 
     #broader: year
-    value["broader"] = [ {"period" => "year", "value" => year }, {"period" => "quarter", "value" => "#{year}Q#{month/4+1}" } ]
+    value["broader"] = [ {"period" => "year", "value" => year.to_s }, {"period" => "quarter", "value" => "#{year}Q#{month/4+1}" } ]
         
   else
     $stderr.puts "Unexpected item in the data loading area: #{key}"
