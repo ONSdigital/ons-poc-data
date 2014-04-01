@@ -98,15 +98,15 @@ process("dataset-*.json") do |json|
     when "attribute"
       attr = DataAttribute.where( slug: key ).first
       cs = ConceptScheme.where( :slug => value["values_slug"] ).first if value["values_slug"]
-      data_attributes[attr.id] = cs.id 
+      data_attributes[attr.id.to_s] = cs.id 
     when "dimension"
       dim = Dimension.where( slug: key ).first
       cs = ConceptScheme.where( :slug => value["values_slug"] ).first if value["values_slug"]
-      dimensions[dim.id] = cs.id
+      dimensions[dim.id.to_s] = cs.id
     when "timedimension"
       dim = Dimension.where( slug: key ).first
       cs = ConceptScheme.where( :slug => value["values_slug"] ).first if value["values_slug"]      
-      dimensions[dim.id] = cs.id
+      dimensions[dim.id.to_s] = cs.id
     when "measure"
       measure = Measure.where( slug: key ).first
       measures << measure.id
@@ -123,6 +123,7 @@ process("dataset-*.json") do |json|
   dataset.title = json["title"]
   dataset.description = json["description"]
   dataset.release = release
+  puts dimensions.inspect
   dataset.dimensions = dimensions
   dataset.data_attributes = data_attributes
   dataset.measures = measures
