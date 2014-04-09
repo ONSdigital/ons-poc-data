@@ -1,0 +1,7 @@
+{
+  "id": "/def/attributes/index_period",
+  "slug": "index_period",
+  "type": "attribute",
+  "title": "Index Period",
+  "description": "The time period used as a benchmark for generating statistics"
+}

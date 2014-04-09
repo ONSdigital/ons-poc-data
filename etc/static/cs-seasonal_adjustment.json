@@ -1,0 +1,1 @@
+{"id":"/def/seasonal_adjustment","slug":"seasonal_adjustment","type":"concept-scheme","title":"seasonal_adjustment","values":{"NSA":{"notation":"NSA","id":"/def/seasonal_adjustment/nsa","title":"NSA","description":"Not Seasonally Adjusted"},"SA":{"notation":"SA","id":"/def/seasonal_adjustment/sa","title":"SA","description":"Seasonally Adjusted"}}}

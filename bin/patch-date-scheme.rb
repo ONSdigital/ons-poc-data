@@ -71,7 +71,9 @@ scheme["values"].each do |key, value|
 
     #broader: year
     value["broader"] = [ {"period" => "year", "value" => year.to_s }, {"period" => "quarter", "value" => "#{year}Q#{month/4+1}" } ]
-        
+    
+    value["title"] = "#{Date::MONTHNAMES[month]} #{year}"  
+    value["description"] = "#{Date::MONTHNAMES[month]} #{year}"    
   else
     $stderr.puts "Unexpected item in the data loading area: #{key}"
   end
