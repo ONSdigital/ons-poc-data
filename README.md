@@ -54,7 +54,7 @@ There are a couple of static files in `etc/static` which are copied into the `da
 * The [PPI records January 2014](http://www.ons.gov.uk/ons/rel/ppi2/producer-price-index/january-2014/ppi-records-january-2014.xls) which are one part of the [reference tables](http://www.ons.gov.uk/ons/publications/re-reference-tables.html?edition=tcm%3A77-325532). These contain indices showing current rates.
 * The set of HTML pages linked from the [PPI index](http://www.ons.gov.uk/ons/rel/ppi2/producer-price-index/index.html)
 
-## Notes on Generated Output
+## Conversion Output
 
 The conversion generates several kinds of files:
 
@@ -89,6 +89,8 @@ E.g. `cdid` is defined as:
    }
 }
 ```
+
+Broadly speaking these files are loaded directly into Mongo. However, rather than adding the documents directly they are parsed and serialised via the appropriate [content model objects](https://github.com/ONSdigital/ons_data_models) to ensure that the data is correctly validated.
 
 ##Use Cases
 
