@@ -9,22 +9,15 @@ More detail on each of these steps is given below.
 
 The project also contains a script to load the generated data into a MongoDB instance using the [content models](https://github.com/ONSdigital/ons_data_models) created for the API. 
 
-## Data Conversion Overview
+##Installation and Running the Conversion
 
-##Installation
+Rake is used as the means for co-ordinating and running the data conversion process. There are separate scripts for running each of the conversion processes to assemble the complete dataset (see below).
 
-Rake is used as the means for co-ordinating and running the data conversion process. The original XML data is converted to JSON using XSLT stylesheets processed 
-with Saxon.
+There are a couple of dependencies that need special installation.
 
-hpricot isn't in rubygems anymore so you'll need to manually gem install it, it won't install by itself just running bundle.
+The scripts use some XSLT stylesheets to convert some XML data to JSON. This is handled using Saxon.
 
-
-```
-gem install hpricot
-bundle install
-```
-
-Then, on Linux, run 
+On Linux, run 
 
 ```
 sudo apt-get install libsaxonb-java
@@ -34,6 +27,15 @@ Or on OSX, run
 
 ```
 brew install saxon
+```
+
+This should install the required Saxon executable.
+
+Some data is scraped from HTML pages and this uses the [hpricot](https://github.com/hpricot/hpricot) gem. hpricot isn't in rubygems anymore so you'll need to manually gem install it, it won't install by itself just running bundle.
+
+```
+gem install hpricot
+bundle install
 ```
 
 ##Running the Conversion
@@ -46,7 +48,15 @@ rake
 
 There are individual rake tasks for the key steps: `init`, `download`, and `convert` 
 
-There are a couple of static files in `etc/static` which are copied into the `data/json` directory.
+To load the data into mongo run
+
+```
+rake load
+```
+
+There are a couple of static files in `etc/static` which are automatically copied into the `data/json` directory when the `convert` task is run.
+
+For a complete list of all supported Rake tasks run: `rake -T`.
 
 ##The Input
 
@@ -56,7 +66,9 @@ There are a couple of static files in `etc/static` which are copied into the `da
 
 ## Conversion Output
 
-The conversion generates several kinds of files:
+The conversion generates some intermediary files which are later used to populate Mongodb.
+
+The conversion generates several kinds of files.:
 
 * Series (`series-*.json`) -- in this case, just a single series, the PPI
 * Release (`release-*.json`) -- one for each of the monthly releases of the PPI
