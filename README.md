@@ -35,12 +35,17 @@ Some data is scraped from HTML pages and this uses the [hpricot](https://github.
 
 ```
 gem install hpricot
+```
+
+To install the final dependencies run:
+
+```
 bundle install
 ```
 
 ##Running the Conversion
 
-The provided Rakefile will run the complete conversion putting all output in `data/json`. So just run:
+By default, the provided Rakefile will run the complete conversion storing all output in `data/json`. So just run:
 
 ```
 rake
@@ -54,15 +59,40 @@ To load the data into mongo run
 rake load
 ```
 
-There are a couple of static files in `etc/static` which are automatically copied into the `data/json` directory when the `convert` task is run.
-
 For a complete list of all supported Rake tasks run: `rake -T`.
 
-##The Input
+##Data Sources
 
-* [The main PPI dataset zipped XML file](http://www.ons.gov.uk/ons/datasets-and-tables/downloads/data.zip?dataset=ppi). See [context](http://www.ons.gov.uk/ons/rel/ppi2/producer-price-index/january-2014/tsd-producer-price-index--january-2014.html)
-* The [PPI records January 2014](http://www.ons.gov.uk/ons/rel/ppi2/producer-price-index/january-2014/ppi-records-january-2014.xls) which are one part of the [reference tables](http://www.ons.gov.uk/ons/publications/re-reference-tables.html?edition=tcm%3A77-325532). These contain indices showing current rates.
-* The set of HTML pages linked from the [PPI index](http://www.ons.gov.uk/ons/rel/ppi2/producer-price-index/index.html)
+### PPI Dataset (XML)
+
+The main data source is the [PPI dataset zipped XML file](http://www.ons.gov.uk/ons/datasets-and-tables/downloads/data.zip?dataset=ppi). See [context](http://www.ons.gov.uk/ons/rel/ppi2/producer-price-index/january-2014/tsd-producer-price-index--january-2014.html).
+
+The zip file is download, unpacked and then two XSLT stylesheets are run over the data:
+
+* `etc/static/generate-dataset.xsl` -- generate the core dataset metadata
+* `etc/static/generate-observations.xls` -- generate one JSON file for each observation in the dataset
+
+###  PPI Reference Table (Excel)
+
+Each ONS statistical release consists of a core dataset and some [reference tables](http://www.ons.gov.uk/ons/publications/re-reference-tables.html?edition=tcm%3A77-325532). 
+
+To illustrate conversion of a reference table, which are often cited from the statistical analysis, the [PPI records January 2014](http://www.ons.gov.uk/ons/rel/ppi2/producer-price-index/january-2014/ppi-records-january-2014.xls) is downloaded.
+
+The Excel spreadsheet is processed using the [roo](https://github.com/Empact/roo) library which provides a simple way to read Excel spreadsheets.
+
+### PPI Release Pages (HTML)
+
+To provide data on each of the releases associated with the PPI series, the set of HTML pages linked from the [PPI index](http://www.ons.gov.uk/ons/rel/ppi2/producer-price-index/index.html) is crawled and scraped. 
+
+To avoid hitting the ONS website too frequently the pages are downloaded and cached, making it easier to re-run the conversion.
+
+This conversion step generates the release metadata.
+
+### Static Data (JSON)
+
+There are a couple of static files in `etc/static` which are automatically copied into the `data/json` directory when the `convert` task is run.
+
+These static files were hand-written. They provide documentation (e.g. titles and descriptions) for dimensions, measures and attributes that were not available from the ONS site.
 
 ## Conversion Output
 
